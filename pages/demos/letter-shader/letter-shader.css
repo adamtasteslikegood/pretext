@@ -1,0 +1,173 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100vw; height: 100vh; overflow: hidden; background: #06060a; color: #eee; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+.stage {
+  position: fixed; inset: 0;
+  font-family: Georgia, Palatino, "Times New Roman", serif;
+  font-size: 14px;
+  line-height: 17px;
+  overflow: hidden;
+  white-space: pre;
+  pointer-events: none;
+}
+.stage .row { height: 17px; line-height: 17px; }
+.stage .w3 { font-weight: 300; }
+.stage .w5 { font-weight: 500; }
+.stage .w8 { font-weight: 800; }
+.stage .it { font-style: italic; }
+
+.vignette {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.55) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.35) 100%);
+  z-index: 5;
+}
+
+.hud {
+  position: fixed;
+  inset: 0;
+  padding: 32px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.headline { pointer-events: auto; max-width: 560px; }
+.eyebrow {
+  font: 600 10px/1 "SF Mono", ui-monospace, monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 8px;
+}
+.headline h1 {
+  font: 600 28px/1.1 Georgia, "Times New Roman", serif;
+  color: rgba(255,255,255,0.92);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.tagline {
+  font: 400 13px/1.5 "Helvetica Neue", sans-serif;
+  color: rgba(255,255,255,0.55);
+  max-width: 52ch;
+}
+.tagline code {
+  font-family: "SF Mono", ui-monospace, monospace;
+  font-size: 12px;
+  background: rgba(255,255,255,0.06);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.panel {
+  pointer-events: auto;
+  grid-row: 3;
+  justify-self: start;
+  width: min(420px, calc(100vw - 64px));
+  background: rgba(10,10,14,0.55);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 14px;
+}
+.panel-row h2 {
+  font: 600 9px/1 "SF Mono", ui-monospace, monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.42);
+  margin-bottom: 8px;
+}
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.palette-button {
+  all: unset;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  display: grid;
+  gap: 8px;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+.palette-button:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); }
+.palette-button[aria-pressed="true"] {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.28);
+}
+.palette-swatches {
+  display: flex;
+  gap: 3px;
+}
+.palette-swatch {
+  flex: 1;
+  height: 12px;
+  border-radius: 3px;
+}
+.palette-label {
+  font: 600 12px/1.2 "Helvetica Neue", sans-serif;
+  color: rgba(255,255,255,0.88);
+}
+
+.slider-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+.slider-row input[type="range"] {
+  width: 100%;
+  accent-color: rgba(255,255,255,0.8);
+}
+.slider-row .value {
+  font: 500 12px/1 "SF Mono", ui-monospace, monospace;
+  color: rgba(255,255,255,0.7);
+  min-width: 48px;
+  text-align: right;
+}
+
+.play {
+  all: unset;
+  cursor: pointer;
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  font: 500 12px/1 "Helvetica Neue", sans-serif;
+  color: rgba(255,255,255,0.88);
+  transition: background 140ms ease;
+}
+.play:hover { background: rgba(255,255,255,0.14); }
+.play[aria-pressed="true"] {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.28);
+}
+
+.stats-row {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 10px;
+}
+.stat {
+  font: 400 10px/1 "SF Mono", ui-monospace, monospace;
+  color: rgba(255,255,255,0.38);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 640px) {
+  .hud { padding: 20px; }
+  .headline h1 { font-size: 22px; }
+  .panel { width: calc(100vw - 40px); }
+  .palette-grid { grid-template-columns: 1fr 1fr; }
+}
