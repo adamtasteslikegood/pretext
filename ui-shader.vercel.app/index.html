@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UI Shader</title>
+    <style>
+      :root {
+        --ink: #f7ecdf;
+        --muted: rgba(247, 236, 223, 0.72);
+        --panel-bg: rgba(10, 18, 31, 0.48);
+        --panel-border: rgba(255, 255, 255, 0.14);
+        --button-bg: rgba(255, 255, 255, 0.1);
+        --button-active: rgba(255, 255, 255, 0.22);
+        --shadow: 0 24px 90px rgba(3, 7, 18, 0.4);
+        --safe-top: 0px;
+        --safe-right: 0px;
+        --safe-bottom: 0px;
+        --safe-left: 0px;
+        --app-height: min(100dvh, 720px);
+      }
+
+      :root[data-theme="light"] {
+        --ink: #fff8f0;
+        --muted: rgba(255, 248, 240, 0.78);
+        --panel-bg: rgba(17, 20, 28, 0.36);
+        --panel-border: rgba(255, 255, 255, 0.22);
+        --button-bg: rgba(255, 255, 255, 0.14);
+        --button-active: rgba(255, 255, 255, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        overflow: hidden;
+        color: var(--ink);
+        background: #08111d;
+        font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        appearance: none;
+        border: 0;
+        color: inherit;
+        background: none;
+      }
+
+      button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .app {
+        position: relative;
+        width: 100%;
+        min-height: var(--app-height);
+        height: var(--app-height);
+        isolation: isolate;
+        overflow: hidden;
+      }
+
+      .stage,
+      .scrim {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .stage {
+        display: block;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 180ms ease;
+      }
+
+      .stage.is-active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .scrim {
+        pointer-events: none;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(255, 255, 255, 0.12),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 80% 12%,
+            rgba(255, 212, 141, 0.12),
+            transparent 28%
+          ),
+          linear-gradient(180deg, rgba(3, 7, 18, 0.08), rgba(3, 7, 18, 0.3));
+        mix-blend-mode: screen;
+      }
+
+      .vignette {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(180deg, rgba(4, 7, 15, 0.16), transparent 22%),
+          linear-gradient(0deg, rgba(4, 7, 15, 0.35), transparent 28%),
+          radial-gradient(
+            circle at center,
+            transparent 44%,
+            rgba(3, 7, 18, 0.4) 100%
+          );
+      }
+
+      .hud {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        width: 100%;
+        height: 100%;
+        padding: calc(18px + var(--safe-top)) calc(18px + var(--safe-right))
+          calc(18px + var(--safe-bottom)) calc(18px + var(--safe-left));
+      }
+
+      .headline {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        min-width: 0;
+      }
+
+      .brand {
+        min-width: 0;
+        max-width: 460px;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-shadow: 0 6px 18px rgba(6, 12, 24, 0.42);
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-family: "Iowan Old Style", "Palatino Linotype", serif;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 700;
+        line-height: 0.94;
+        text-wrap: balance;
+        text-shadow: 0 12px 34px rgba(6, 12, 24, 0.44);
+      }
+
+      .brand p {
+        margin: 12px 0 0;
+        max-width: 28rem;
+        font-size: 0.95rem;
+        line-height: 1.45;
+        color: var(--muted);
+        text-shadow: 0 8px 24px rgba(6, 12, 24, 0.4);
+      }
+
+      .status-stack {
+        display: grid;
+        gap: 8px;
+        justify-items: end;
+      }
+
+      :root[data-display-mode="fullscreen"] .status-stack,
+      :root[data-display-mode="pip"] .status-stack {
+        display: none;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        max-width: 100%;
+        min-height: 34px;
+        padding: 0 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(9, 13, 22, 0.34);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 12px 38px rgba(2, 7, 19, 0.24);
+        font-size: 0.82rem;
+      }
+
+      .pill strong {
+        font-weight: 700;
+      }
+
+      .pill span,
+      .pill strong {
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .panel {
+        align-self: flex-end;
+        width: min(100%, 400px);
+        padding: 12px 14px;
+        border-radius: 20px;
+        border: 1px solid var(--panel-border);
+        background: var(--panel-bg);
+        backdrop-filter: blur(22px) saturate(125%);
+        box-shadow: var(--shadow);
+      }
+
+      :root[data-display-mode="fullscreen"] .panel,
+      :root[data-display-mode="pip"] .panel {
+        position: absolute;
+        top: calc(22px + var(--safe-top));
+        right: calc(18px + var(--safe-right));
+        width: min(
+          380px,
+          calc(100% - 36px - var(--safe-left) - var(--safe-right))
+        );
+        max-width: 380px;
+      }
+
+      .controls-chip {
+        position: absolute;
+        top: calc(22px + var(--safe-top));
+        right: calc(18px + var(--safe-right));
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 0 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(10, 18, 31, 0.52);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 18px 48px rgba(3, 7, 18, 0.3);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+      }
+
+      .controls-chip[hidden] {
+        display: none;
+      }
+
+      :root[data-display-mode="fullscreen"] .brand,
+      :root[data-display-mode="pip"] .brand {
+        max-width: 560px;
+      }
+
+      .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 6px;
+      }
+
+      .panel-title {
+        min-width: 0;
+      }
+
+      .panel-title h2 {
+        margin: 0;
+        font-size: 0.92rem;
+        letter-spacing: 0.02em;
+      }
+
+      .panel-title p {
+        display: none;
+        margin: 6px 0 0;
+        max-width: 17rem;
+        font-size: 0.74rem;
+        line-height: 1.4;
+        color: var(--muted);
+      }
+
+      .panel[data-compatibility="true"] .panel-title p {
+        display: block;
+      }
+
+      .ghost-button,
+      .toggle-button,
+      .palette-button,
+      .play-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 36px;
+        padding: 0 11px;
+        border-radius: 999px;
+        background: var(--button-bg);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        cursor: pointer;
+        font-size: 0.83rem;
+        transition:
+          transform 140ms ease,
+          background 140ms ease,
+          border-color 140ms ease,
+          opacity 140ms ease;
+      }
+
+      .ghost-button:hover,
+      .toggle-button:hover,
+      .palette-button:hover,
+      .play-button:hover {
+        transform: translateY(-1px);
+        background: var(--button-active);
+      }
+
+      .ghost-button[hidden] {
+        display: none;
+      }
+
+      .panel-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+          "palette palette"
+          "renderer playback";
+        column-gap: 18px;
+        row-gap: 14px;
+      }
+
+      .control-card {
+        min-width: 0;
+        padding: 12px 0 0;
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: none;
+      }
+
+      .control-card.palette-card {
+        grid-area: palette;
+      }
+
+      .control-card.playback-card {
+        grid-area: playback;
+      }
+
+      .control-card.renderer-card {
+        grid-area: renderer;
+        padding-right: 14px;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .control-card h3 {
+        margin: 0 0 8px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .palette-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+        gap: 8px;
+      }
+
+      .palette-button {
+        width: 100%;
+        min-width: 0;
+        justify-content: center;
+        min-height: 38px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        text-align: center;
+      }
+
+      .palette-button[aria-pressed="true"],
+      .toggle-button[aria-pressed="true"] {
+        background: rgba(255, 255, 255, 0.22);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .palette-label {
+        display: grid;
+        gap: 1px;
+        min-width: 0;
+        justify-items: center;
+      }
+
+      .palette-label strong {
+        display: block;
+        max-width: 100%;
+        font-size: 0.76rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .palette-label span {
+        display: none;
+        color: var(--muted);
+      }
+
+      .swatches {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 0;
+      }
+
+      .swatch {
+        width: 13px;
+        height: 13px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1);
+      }
+
+      .toggle-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .toggle-button {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .range-readout {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+
+      .range-readout strong {
+        font-size: 0.9rem;
+      }
+
+      .range-readout span {
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: #f4d5a4;
+        cursor: pointer;
+      }
+
+      .play-row {
+        display: grid;
+        gap: 10px;
+      }
+
+      .play-button {
+        width: 100%;
+        min-height: 36px;
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.7rem;
+      }
+
+      .legend span {
+        padding: 0;
+        background: none;
+      }
+
+      .legend span + span::before {
+        content: "•";
+        margin-right: 8px;
+        opacity: 0.55;
+      }
+
+      :root[data-display-mode="fullscreen"] .hud,
+      :root[data-display-mode="pip"] .hud {
+        gap: 12px;
+      }
+
+      :root[data-display-mode="fullscreen"] .panel-grid,
+      :root[data-display-mode="pip"] .panel-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "palette"
+          "renderer"
+          "playback";
+      }
+
+      :root[data-display-mode="fullscreen"] .control-card.renderer-card,
+      :root[data-display-mode="pip"] .control-card.renderer-card {
+        padding-right: 0;
+        border-right: 0;
+      }
+
+      :root[data-display-mode="fullscreen"] .palette-grid,
+      :root[data-display-mode="pip"] .palette-grid {
+        grid-template-columns: 1fr;
+      }
+
+      :root[data-display-mode="fullscreen"] .palette-button,
+      :root[data-display-mode="pip"] .palette-button {
+        justify-content: flex-start;
+        text-align: left;
+      }
+
+      :root[data-display-mode="fullscreen"] .palette-label,
+      :root[data-display-mode="pip"] .palette-label {
+        justify-items: start;
+      }
+
+      @media (max-width: 1280px) {
+        :root:not([data-display-mode="fullscreen"]):not(
+            [data-display-mode="pip"]
+          )
+          .headline {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+        }
+
+        :root:not([data-display-mode="fullscreen"]):not(
+            [data-display-mode="pip"]
+          )
+          .brand {
+          max-width: min(100%, 620px);
+        }
+
+        :root:not([data-display-mode="fullscreen"]):not(
+            [data-display-mode="pip"]
+          )
+          .status-stack {
+          grid-template-columns: repeat(3, minmax(0, max-content));
+          justify-content: start;
+          justify-items: start;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .app {
+          min-height: max(640px, var(--app-height));
+          height: var(--app-height);
+        }
+
+        .panel-grid {
+          grid-template-columns: 1fr;
+          grid-template-areas:
+            "palette"
+            "renderer"
+            "playback";
+        }
+
+        .palette-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .control-card.renderer-card {
+          padding-right: 0;
+          border-right: 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hud {
+          padding: calc(14px + var(--safe-top)) calc(14px + var(--safe-right))
+            calc(14px + var(--safe-bottom)) calc(14px + var(--safe-left));
+        }
+
+        .headline {
+          display: grid;
+        }
+
+        .status-stack {
+          justify-items: start;
+        }
+
+        .panel {
+          align-self: stretch;
+          padding: 16px;
+          border-radius: 24px;
+        }
+
+        .panel-header {
+          display: grid;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-DCNSUOv3.js"></script>
+  </head>
+  <body>
+    <main class="app">
+      <canvas id="webgl-stage" class="stage is-active"></canvas>
+      <canvas id="fallback-stage" class="stage"></canvas>
+      <div class="scrim"></div>
+      <div class="vignette"></div>
+
+      <section class="hud">
+        <div class="headline">
+          <div class="brand">
+            <p class="eyebrow">UI Shader</p>
+            <h1>Ribbon light, color drift, and motion.</h1>
+            <p id="summary">
+              A standalone gradient study with palette, playback, and renderer
+              controls.
+            </p>
+          </div>
+
+          <div class="status-stack">
+            <div class="pill">
+              <span>Palette</span>
+              <strong id="palette-status">Lagoon</strong>
+            </div>
+            <div class="pill">
+              <span>Mode</span>
+              <strong id="host-status">Standalone</strong>
+            </div>
+          </div>
+        </div>
+
+        <button
+          id="controls-chip"
+          class="controls-chip"
+          type="button"
+          aria-controls="control-panel"
+          aria-expanded="false"
+          hidden
+        >
+          Show controls
+        </button>
+
+        <section
+          id="control-panel"
+          class="panel"
+          aria-label="UI Shader controls"
+        >
+          <div class="panel-header">
+            <div class="panel-title">
+              <h2>Controls</h2>
+              <p id="panel-note">
+                Compatibility mode is active because this browser could not use
+                WebGL.
+              </p>
+            </div>
+
+            <button id="fullscreen-button" class="ghost-button" type="button">
+              Reset scene
+            </button>
+          </div>
+
+          <div class="panel-grid">
+            <section class="control-card palette-card">
+              <h3>Palette</h3>
+              <div id="palette-grid" class="palette-grid"></div>
+            </section>
+
+            <section class="control-card renderer-card">
+              <h3>Renderer</h3>
+              <div class="toggle-row">
+                <button
+                  id="renderer-webgl"
+                  class="toggle-button"
+                  type="button"
+                  aria-pressed="true"
+                >
+                  WebGL
+                </button>
+                <button
+                  id="renderer-fallback"
+                  class="toggle-button"
+                  type="button"
+                  aria-pressed="false"
+                >
+                  Fallback
+                </button>
+              </div>
+            </section>
+
+            <section class="control-card playback-card">
+              <h3>Playback</h3>
+              <div class="play-row">
+                <div>
+                  <div class="range-readout">
+                    <strong id="speed-value">2.00x</strong>
+                    <span>speed</span>
+                  </div>
+                  <input
+                    id="speed-input"
+                    type="range"
+                    min="0.15"
+                    max="5"
+                    step="0.05"
+                    value="2.00"
+                    aria-label="Animation speed"
+                  />
+                </div>
+
+                <button id="play-toggle" class="play-button" type="button">
+                  Pause animation
+                </button>
+              </div>
+
+              <div id="compatibility-note" class="legend" hidden>
+                <span id="compatibility-note-label"
+                  >Compatibility renderer active</span
+                >
+              </div>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+
+  </body>
+</html>
