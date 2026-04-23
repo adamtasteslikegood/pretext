@@ -157,3 +157,60 @@
 [  689452ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
 [  693093ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
 [  698206ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  701951ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  707368ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  714520ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  720275ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  724122ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  731485ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  735470ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  741935ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  747785ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  753820ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  759136ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  766071ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  769695ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  775755ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  782585ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  789805ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  796402ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  802238ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  806285ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  813419ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  817293ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  823541ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  829652ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  835820ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  841185ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  847886ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  854701ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  858689ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  865768ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  869467ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  874036ms] [INFO] [Bun] Reconnected @ http://localhost:3000/_bun/client/index-000000005971f864.js:20
+[  874506ms] [INFO] [Bun] Hot-module-reloading socket connected, waiting for changes... @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1230469ms] [WARNING] [Bun] Hot-module-reloading socket disconnected, reconnecting... @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1231472ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1233973ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1236475ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1238977ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1241481ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1243987ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1246495ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1249004ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1251536ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1254087ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1256738ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1259506ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1262144ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1265402ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1269711ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1275485ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_bun/hmr' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1282794ms] [INFO] [Bun] Reconnected @ http://localhost:3000/_bun/client/index-00000000975568bc.js:20
+[ 1282855ms] [INFO] [Bun] Hot-module-reloading socket connected, waiting for changes... @ http://localhost:3000/_bun/client/index-0000000080501bc1.js:20
+[ 1596013ms] [INFO] [Bun] Hot-module-reloading socket connected, waiting for changes... @ http://localhost:3000/_bun/client/index-0000000080501bc1.js:20
+[ 1607209ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/demos/l:0
+[ 1618372ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/demos/:0
+[ 1626338ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/:0
+[ 1638659ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/demos/letter-shaderindex.html:0
+[ 1648249ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/pages/demos/letter-shaderindex.html:0
