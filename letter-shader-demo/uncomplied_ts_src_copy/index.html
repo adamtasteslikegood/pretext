@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letter Shader — Pretext Demos</title>
+<link rel="stylesheet" href="./letter-shader.css">
+</head>
+<body>
+<div class="stage" id="stage"></div>
+<div class="vignette"></div>
+<main class="hud">
+<header class="headline">
+<p class="eyebrow">Pretext</p>
+<h1>Letter Shader</h1>
+<p class="tagline">The ui-shader effect rendered with letters — no React, no WebGL. Just <code>prepareWithSegments()</code> and a density field.</p>
+</header>
+<section class="panel" id="panel">
+<div class="panel-row">
+<h2>Palette</h2>
+<div class="palette-grid" id="palette-grid"></div>
+</div>
+<div class="panel-row">
+<h2>Speed</h2>
+<div class="slider-row">
+<input type="range" id="speed" min="0.15" max="5" step="0.05" value="1">
+<span class="value" id="speed-value">1.00×</span>
+</div>
+</div>
+<div class="panel-row">
+<h2>Playback</h2>
+<button class="play" id="play" aria-pressed="false">Pause</button>
+</div>
+<div class="panel-row stats-row">
+<span class="stat" id="stats">—</span>
+</div>
+</section>
+</main>
+<script type="module" src="./letter-shader.ts"></script>
+</body>
+</html>
